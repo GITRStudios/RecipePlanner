@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpass
+      POSTGRES_DB: mydb
+      API_USER: api_fttj1bwzwbg8
+      API_PASS: supersecret
+      ADMIN_USER: cb_y3vc93oqdruf
+      ADMIN_PASS: anothersecret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./postgres-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: cloudbeaver_app
+    restart: unless-stopped
+    ports:
+      - "8978:8978"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:

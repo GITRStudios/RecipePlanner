@@ -1,5 +1,5 @@
 {
-   "name": "recipe-planner",
+   "name": "recipe-planner-api",
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
    "type": "commonjs",
@@ -9,9 +9,12 @@
       "typescript": "^5.8.2"
    },
    "dependencies": {
+      "body-parser": "^1.20.3",
+      "express": "^4.21.2",
+      "pg": "^8.14.1",
       "reflect-metadata": "^0.2.2",
       "typeorm": "0.3.27",
-      "pg": "^8.14.1"
+      "uuid": "^13.0.0"
    },
    "scripts": {
       "start": "ts-node src/index.ts",

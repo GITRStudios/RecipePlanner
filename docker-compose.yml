@@ -8,11 +8,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: adminpass
-      POSTGRES_DB: mydb
-      API_USER: api_fttj1bwzwbg8
-      API_PASS: supersecret
-      ADMIN_USER: cb_y3vc93oqdruf
-      ADMIN_PASS: anothersecret
+      POSTGRES_DB: rpdb
     ports:
       - "5432:5432"
     volumes:

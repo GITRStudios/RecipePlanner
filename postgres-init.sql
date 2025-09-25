@@ -57,31 +57,13 @@ CREATE TABLE IF NOT EXISTS grocerylist (
     CONSTRAINT fk_gl_ingredient FOREIGN KEY (ingredient_fk) REFERENCES ingredient(id),
     CONSTRAINT fk_gl_user FOREIGN KEY (user_fk) REFERENCES "user"(id)
 );
-
--- Create API role (from env vars)
-\set api_user `echo $API_USER`
-\set api_pass `echo $API_PASS`
 DO $$
 BEGIN
-   IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = :'api_user') THEN
-      EXECUTE format('CREATE ROLE %I LOGIN PASSWORD %L', :'api_user', :'api_pass');
+   IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'api_fttj1bwzwbg8') THEN
+      CREATE ROLE api_fttj1bwzwbg8 LOGIN PASSWORD 'supersecret';
    END IF;
 END
 $$;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO :api_user;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO :api_user;
 
--- Create Admin role (from env vars)
-\set admin_user `echo $ADMIN_USER`
-\set admin_pass `echo $ADMIN_PASS`
-DO $$
-BEGIN
-   IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = :'admin_user') THEN
-      EXECUTE format('CREATE ROLE %I LOGIN PASSWORD %L', :'admin_user', :'admin_pass');
-   END IF;
-END
-$$;
-GRANT ALL PRIVILEGES ON DATABASE current_database() TO :admin_user;
-GRANT ALL PRIVILEGES ON SCHEMA public TO :admin_user;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO :admin_user;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO :admin_user;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO api_fttj1bwzwbg8;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO api_fttj1bwzwbg8;

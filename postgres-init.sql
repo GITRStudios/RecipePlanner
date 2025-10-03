@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS ingredient_recipe (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     ingredient_fk UUID,
     recipe_fk UUID,
+    quantity VARCHAR(10)
+    measurement VARCHAR(255)
     CONSTRAINT fk_ir_ingredient FOREIGN KEY (ingredient_fk) REFERENCES ingredient(id),
     CONSTRAINT fk_ir_recipe FOREIGN KEY (recipe_fk) REFERENCES recipe(id)
 );
